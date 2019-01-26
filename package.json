@@ -1,0 +1,24 @@
+{
+  "name": "scaled-sheet",
+  "version": "1.0.0",
+  "description": "React Native multi screen size support",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maphongba008/scaled-sheet.git"
+  },
+  "keywords": [
+    "scaled",
+    "react",
+    "react-native"
+  ],
+  "author": "maphongba008",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maphongba008/scaled-sheet/issues"
+  },
+  "homepage": "https://github.com/maphongba008/scaled-sheet#readme"
+}
