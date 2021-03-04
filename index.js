@@ -1,79 +1,88 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from "react-native";
 
-const BASE_WIDTH = 375;
-const BASE_HEIGHT = 667;
-
-const { width, height } = Dimensions.get('window');
-
-const scaleX = width / BASE_WIDTH;
-const scaleY = height / BASE_HEIGHT;
-
-const scale = Math.min(scaleX, scaleY, 1.3);
+const Config = {
+  deviceWidth: 375,
+  baseWidth: 375,
+  maxScale: 1.3,
+  minScale: 0.8,
+  scale: function (value) {
+    const ratio = this.deviceWidth / this.baseWidth;
+    return value * Math.min(Math.max(ratio, this.minScale), this.maxScale);
+  },
+};
 
 const propsToUpdate = [
-  'width',
-  'height',
-  'fontSize',
-  'letterSpacing',
-  'lineHeight',
-  'borderBottomLeftRadius',
-  'borderBottomRightRadius',
-  'borderTopLeftRadius',
-  'borderTopRightRadius',
-  'borderRadius',
-  'borderBottomWidth',
-  'borderTopWidth',
-  'borderRightWidth',
-  'borderLeftWidth',
-  'borderWidth',
-  'shadowRadius',
-  'borderWidth',
-  'translateX',
-  'translateY',
-  'marginLeft',
-  'marginRight',
-  'marginHorizontal',
-  'marginVertical',
-  'margin',
-  'paddingLeft',
-  'paddingRight',
-  'paddingHorizontal',
-  'paddingVertical',
-  'padding',
-  'top',
-  'left',
-  'bottom',
-  'right',
-]
+  "height",
+  "fontSize",
+  "letterSpacing",
+  "lineHeight",
+  "borderBottomLeftRadius",
+  "borderBottomRightRadius",
+  "borderTopLeftRadius",
+  "borderTopRightRadius",
+  "borderRadius",
+  "borderBottomWidth",
+  "borderTopWidth",
+  "borderRightWidth",
+  "borderLeftWidth",
+  "borderWidth",
+  "shadowRadius",
+  "borderWidth",
+  "translateX",
+  "translateY",
+  "marginLeft",
+  "marginRight",
+  "marginHorizontal",
+  "marginVertical",
+  "marginTop",
+  "marginBottom",
+  "margin",
+  "paddingLeft",
+  "paddingRight",
+  "paddingHorizontal",
+  "paddingVertical",
+  "padding",
+  "paddingTop",
+  "paddingBottom",
+  "top",
+  "left",
+  "bottom",
+  "right",
+];
 
 export class ScaledSheet {
+  static scale = (value) => Config.scale(value);
 
-  static map = (obj) => {
+  static initialize = (config) => {
+    const { baseWidth, maxScale, minScale, deviceWidth } = config;
+    Config.deviceWidth = deviceWidth || Config.deviceWidth;
+    Config.maxScale = maxScale || Config.maxScale;
+    Config.minScale = minScale || Config.minScale;
+    Config.baseWidth = baseWidth || Config.baseWidth;
+  };
+
+  static mapObj = (o) => {
     const res = {};
-    Object.keys(obj).forEach(key => {
-      const mapStyleObj = {};
-      const styleObject = obj[key];
-      Object.keys(obj[key]).forEach(t => {
-        if (propsToUpdate.indexOf(t) > -1) {
-          if (typeof styleObject[t] === 'number') {
-            mapStyleObj[t] = styleObject[t] * scale;
-          } else if (typeof styleObject[t] === 'string' && styleObject[t].match(/^-{0,1}\d+\.?\d+$/)) {
-            mapStyleObj[t] = parseInt(styleObject[t]);
-          } else {
-            mapStyleObj[t] = styleObject[t];
-          }
+    Object.keys(o).forEach((objKey) => {
+      // map
+      const obj = o[objKey];
+      const resultObj = {};
+      Object.keys(obj).forEach((key) => {
+        const value = obj[key];
+        if (typeof value === "number" && propsToUpdate.includes(key)) {
+          resultObj[key] = Config.scale(value);
+        } else if (typeof value === "string") {
+          resultObj[key] = isNaN(value) ? value : parseFloat(value);
         } else {
-          mapStyleObj[t] = styleObject[t];
+          resultObj[key] = value;
         }
       });
-      res[key] = mapStyleObj;
-    })
+      res[objKey] = resultObj;
+    });
     return res;
-  }
+  };
 
-  static create = obj => StyleSheet.create(ScaledSheet.map(obj));
+  static create = (obj) => {
+    return StyleSheet.create(ScaledSheet.mapObj(obj));
+  };
 }
-
-export const scaleHorizontal = value => value * scaleX;
-export const scaleVertical = value => value * scaleY;
-export const scaleSmart = value => value * scale;

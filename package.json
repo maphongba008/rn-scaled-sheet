@@ -1,7 +1,7 @@
 {
-  "name": "rn-scaled-sheet",
-  "version": "1.0.1",
-  "description": "React Native multi screen size support",
+  "name": "react-native-scaled",
+  "version": "1.0.5",
+  "description": "React Native multi screen sizes support",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

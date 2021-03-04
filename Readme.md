@@ -19,11 +19,18 @@ yarn add rn-scaled-sheet
 
 ```javascript
 import React from 'react';
+import { Dimensions } from 'react-native'
 import { ScaledSheet } from 'rn-scaled-sheet';
 
+ScaledSheet.initialize({
+  deviceWidth: Dimensions.get('window').width,
+  // baseWidth?: number; // width in design
+  // maxScale?: number;
+  // minScale?: number;
+});
 
 /**
- * Base screen size is 375 x 667
+ * Eg: base screen size is 375 x 667
    Assume app running on 411 x 896 phone,
    => Wrap the value you don't want to scaled in ""
  */
@@ -34,7 +41,7 @@ const styles = ScaledSheet.create({
   button: {
     width: 50, // will become ~55
     height: "50", // still 50
-    opacity: 0.5, // sill 0.5
+    opacity: 0.5, // still 0.5
   }
 })
 
@@ -78,13 +85,6 @@ left|
 bottom|
 right|
 
-### Supported Methods
-
-Method | Description | Max/Min scaled
-|----|----|----|
-scaleHorizontal | scaled by horizontal   | `No max value`
-scaleVertical   | scaled by vertical    |`No max value`
-scaleSmart      | scaled by small ratio | `1.3`
 ## Copyright and License
 
 MIT License
