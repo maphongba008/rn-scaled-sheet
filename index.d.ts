@@ -1,4 +1,4 @@
-import { ViewStyle, TextStyle, ImageStyle } from 'react-native';
+import { ViewStyle, TextStyle, ImageStyle } from "react-native";
 
 interface StringifiedStyles {
   fontSize?: string | number;
@@ -19,7 +19,6 @@ interface StringifiedStyles {
   translateY?: string | number;
 }
 
-
 type Config = {
   baseWidth?: number;
   deviceWidth?: number;
@@ -27,10 +26,22 @@ type Config = {
   minScale?: number;
 };
 
-type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle | StringifiedStyles };
+type NamedStyles<T> = {
+  [P in keyof T]: ViewStyle | TextStyle | ImageStyle | StringifiedStyles;
+};
 
 export namespace ScaledSheet {
-  function create<T extends NamedStyles<T> | NamedStyles<any>>(styles: T | NamedStyles<T>): T;
+  function create<T extends NamedStyles<T> | NamedStyles<any>>(
+    styles: T | NamedStyles<T>
+  ): T;
   function initialize(config: Config): void;
   function scale(value: number): number;
+  function original(value: number): string;
+
+  const absoluteFill;
+  const absoluteFillObject;
 }
+
+export function initialize(config: Config): void;
+export function scale(value: number): number;
+export function original(value: number): string;

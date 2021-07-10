@@ -27,7 +27,6 @@ const propsToUpdate = [
   "borderLeftWidth",
   "borderWidth",
   "shadowRadius",
-  "borderWidth",
   "translateX",
   "translateY",
   "marginLeft",
@@ -51,6 +50,10 @@ const propsToUpdate = [
 ];
 
 export class ScaledSheet {
+  static absoluteFill = StyleSheet.absoluteFill;
+
+  static absoluteFillObject = StyleSheet.absoluteFillObject;
+
   static scale = (value) => Config.scale(value);
 
   static initialize = (config) => {
@@ -84,5 +87,9 @@ export class ScaledSheet {
 
   static create = (obj) => {
     return StyleSheet.create(ScaledSheet.mapObj(obj));
+  };
+
+  static original = (obj) => {
+    return String(obj);
   };
 }

@@ -1,7 +1,5 @@
-
 [![Version](https://img.shields.io/npm/v/rn-scaled-sheet.svg)](https://www.npmjs.com/package/rn-scaled-sheet)
 [![NPM](https://img.shields.io/npm/dm/rn-scaled-sheet.svg)](https://www.npmjs.com/package/rn-scaled-sheet)
-
 
 # rn-scaled-sheet
 
@@ -18,12 +16,12 @@ yarn add rn-scaled-sheet
 ### Usage
 
 ```javascript
-import React from 'react';
-import { Dimensions } from 'react-native'
-import { ScaledSheet } from 'rn-scaled-sheet';
+import React from "react";
+import { Dimensions } from "react-native";
+import { ScaledSheet, original } from "rn-scaled-sheet";
 
 ScaledSheet.initialize({
-  deviceWidth: Dimensions.get('window').width,
+  deviceWidth: Dimensions.get("window").width,
   // baseWidth?: number; // width in design
   // maxScale?: number;
   // minScale?: number;
@@ -32,7 +30,7 @@ ScaledSheet.initialize({
 /**
  * Eg: base screen size is 375 x 667
    Assume app running on 411 x 896 phone,
-   => Wrap the value you don't want to scaled in ""
+   use original function if you don't want to scale
  */
 const styles = ScaledSheet.create({
   container: {
@@ -40,50 +38,49 @@ const styles = ScaledSheet.create({
   },
   button: {
     width: 50, // will become ~55
-    height: "50", // still 50
+    height: original(50), // still 50
     opacity: 0.5, // still 0.5
-  }
-})
-
+  },
+});
 ```
 
 ### Properties will be scaled
 
-Properties |
-|----|
-width|
-height|
-fontSize|
-letterSpacing|
-lineHeight|
-borderBottomLeftRadius|
-borderBottomRightRadius|
-borderTopLeftRadius|
-borderTopRightRadius|
-borderRadius|
-borderBottomWidth|
-borderTopWidth|
-borderRightWidth|
-borderLeftWidth|
-borderWidth|
-shadowRadius|
-borderWidth|
-translateX|
-translateY|
-marginLeft|
-marginRight|
-marginHorizontal|
-marginVertical|
-margin|
-paddingLeft|
-paddingRight|
-paddingHorizontal|
-paddingVertical|
-padding|
-top|
-left|
-bottom|
-right|
+| Properties              |
+| ----------------------- |
+| width                   |
+| height                  |
+| fontSize                |
+| letterSpacing           |
+| lineHeight              |
+| borderBottomLeftRadius  |
+| borderBottomRightRadius |
+| borderTopLeftRadius     |
+| borderTopRightRadius    |
+| borderRadius            |
+| borderBottomWidth       |
+| borderTopWidth          |
+| borderRightWidth        |
+| borderLeftWidth         |
+| borderWidth             |
+| shadowRadius            |
+| borderWidth             |
+| translateX              |
+| translateY              |
+| marginLeft              |
+| marginRight             |
+| marginHorizontal        |
+| marginVertical          |
+| margin                  |
+| paddingLeft             |
+| paddingRight            |
+| paddingHorizontal       |
+| paddingVertical         |
+| padding                 |
+| top                     |
+| left                    |
+| bottom                  |
+| right                   |
 
 ## Copyright and License
 
