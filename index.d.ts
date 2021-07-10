@@ -44,4 +44,4 @@ export namespace ScaledSheet {
 
 export function initialize(config: Config): void;
 export function scale(value: number): number;
-export function original(value: number): string;
+export function original(value: number): any;

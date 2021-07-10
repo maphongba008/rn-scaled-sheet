@@ -1,6 +1,6 @@
 {
   "name": "rn-scaled-sheet",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React Native multi screen sizes support",
   "main": "index.js",
   "scripts": {
