@@ -49,22 +49,31 @@ const propsToUpdate = [
   "right",
 ];
 
-export class ScaledSheet {
-  static absoluteFill = StyleSheet.absoluteFill;
+export const scale = (value) => Config.scale(value);
 
-  static absoluteFillObject = StyleSheet.absoluteFillObject;
+export const initialize = (config) => {
+  const { baseWidth, maxScale, minScale, deviceWidth } = config;
+  Config.deviceWidth = deviceWidth || Config.deviceWidth;
+  Config.maxScale = maxScale || Config.maxScale;
+  Config.minScale = minScale || Config.minScale;
+  Config.baseWidth = baseWidth || Config.baseWidth;
+};
 
-  static scale = (value) => Config.scale(value);
+export const original = (obj) => {
+  return String(obj);
+};
 
-  static initialize = (config) => {
-    const { baseWidth, maxScale, minScale, deviceWidth } = config;
-    Config.deviceWidth = deviceWidth || Config.deviceWidth;
-    Config.maxScale = maxScale || Config.maxScale;
-    Config.minScale = minScale || Config.minScale;
-    Config.baseWidth = baseWidth || Config.baseWidth;
-  };
+export const ScaledSheet = {
+  original,
+  initialize,
+  scale,
+  absoluteFill: StyleSheet.absoluteFill,
+  absoluteFillObject: StyleSheet.absoluteFillObject,
+  create: (obj) => {
+    return StyleSheet.create(ScaledSheet.mapObj(obj));
+  },
 
-  static mapObj = (o) => {
+  mapObj: (o) => {
     const res = {};
     Object.keys(o).forEach((objKey) => {
       // map
@@ -87,13 +96,5 @@ export class ScaledSheet {
       res[objKey] = resultObj;
     });
     return res;
-  };
-
-  static create = (obj) => {
-    return StyleSheet.create(ScaledSheet.mapObj(obj));
-  };
-
-  static original = (obj) => {
-    return String(obj);
-  };
-}
+  },
+};
