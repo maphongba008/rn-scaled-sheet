@@ -72,7 +72,11 @@ export class ScaledSheet {
       const resultObj = {};
       Object.keys(obj).forEach((key) => {
         const value = obj[key];
-        if (typeof value === "number" && propsToUpdate.includes(key)) {
+        if (!propsToUpdate.includes(key)) {
+          resultObj[key] = value;
+          return;
+        }
+        if (typeof value === "number") {
           resultObj[key] = Config.scale(value);
         } else if (typeof value === "string") {
           resultObj[key] = isNaN(value) ? value : parseFloat(value);
